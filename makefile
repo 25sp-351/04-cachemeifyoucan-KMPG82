@@ -29,7 +29,7 @@ testin: $(OBJS)
 
 testin.o: testin.c bst_node.h
 
-bst_node.o: bst_node.c bst_node.h
+Bst_node.o: bst_node.c bst_node.h
 
 clean:
 	rm -f testin $(OBJS)
