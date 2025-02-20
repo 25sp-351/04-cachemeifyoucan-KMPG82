@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "cache.h"
 #include "error_handling.h"
 #include "helpers.h"
 #include "rod_cutting.h"
-#include "cache.h"
 
 #define INITIAL_SIZE 5
 #define BUFFER_SIZE 100
@@ -21,20 +21,20 @@ int main(int argc, char *argv[]) {
     int array_size               = INITIAL_SIZE;
     int length;
     int value;
-    int *length_options = malloc(INITIAL_SIZE * sizeof(int));
-    int *values         = malloc(INITIAL_SIZE * sizeof(int));
+    int *length_options   = malloc(INITIAL_SIZE * sizeof(int));
+    int *values           = malloc(INITIAL_SIZE * sizeof(int));
     function_ptr provider = init_cache(rod_cutting);
 
     if (argc != 2 || !sscanf(argv[1], "%s", buffer)) {
         printf("Invalid input.\n");
-        exit(1);
+        return 0;
     }
 
     file_pointer = fopen(buffer, "r");
 
     if (file_pointer == NULL) {
         printf("File not found.\n");
-        exit(1);
+        return 0;
     }
 
     while (fgets(buffer, sizeof(buffer), file_pointer) != NULL) {
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
             printf(
                 "Invalid input. Only enter positive integers in the specified "
                 "format.  For example, \"24, 5\".\n");
-            exit(1);
+            return 0;
         }
 
         if (number_of_length_options == array_size) {
@@ -73,8 +73,9 @@ int main(int argc, char *argv[]) {
             printf("Invalid input.\n");
             continue;
         }
+
         int max_val = provider(rod_length, length_options, values,
-                                  number_of_length_options, cuts, &remainder);
+                               number_of_length_options, cuts, &remainder);
 
         print_results(length_options, values, cuts, number_of_length_options,
                       remainder, max_val);
@@ -82,5 +83,5 @@ int main(int argc, char *argv[]) {
         memset(cuts, 0, number_of_length_options * sizeof(int));
     }
 
-    exit(1);
+    return 0;
 }

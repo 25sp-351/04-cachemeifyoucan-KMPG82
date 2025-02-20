@@ -13,11 +13,11 @@ int rod_cutting(int rod_length, const int length_options[],
     int best_value     = 0;
     int best_remainder = rod_length;
     int best_cuts[number_of_length_options];
-    memcpy(best_cuts, cuts, sizeof(best_cuts));
+    memcpy(best_cuts, cuts, number_of_length_options * sizeof(int));
 
     for (int ix = 0; ix < number_of_length_options; ix++) {
         int current_cuts[number_of_length_options];
-        memcpy(current_cuts, cuts, sizeof(current_cuts));
+        memcpy(current_cuts, cuts, number_of_length_options * sizeof(int));
 
         if (length_options[ix] <= rod_length) {
             current_cuts[ix]++;
@@ -31,13 +31,14 @@ int rod_cutting(int rod_length, const int length_options[],
 
             if (current_value > best_value) {
                 best_value = current_value;
-                memcpy(best_cuts, current_cuts, sizeof(best_cuts));
+                memcpy(best_cuts, current_cuts,
+                       number_of_length_options * sizeof(int));
                 best_remainder = current_remainder;
             }
         }
     }
 
-    memcpy(cuts, best_cuts, sizeof(best_cuts));
+    memcpy(cuts, best_cuts, number_of_length_options * sizeof(int));
     *remainder = best_remainder;
 
     return best_value;
