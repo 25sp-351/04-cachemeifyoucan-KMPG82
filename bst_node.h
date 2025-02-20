@@ -17,6 +17,11 @@ void print_tree(Bst_node* root, int number_of_options);
 
 Bst_node* find_node(Bst_node* root, int rod_length);
 
-void delete_node(Bst_node** root, int rod_length);
+void delete_node(Bst_node** root, int rod_length, int number_of_options);
 
 Bst_node* find_parent_node(Bst_node* root, Bst_node* target_node);
+
+Bst_node* find_min_node(Bst_node* root);
+
+void copy_node_data(Bst_node** destination, Bst_node* source,
+                    int number_of_options);
