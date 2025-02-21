@@ -40,21 +40,16 @@ void insert_node(Bst_node** root, Bst_node* node) {
         insert_node(&((*root)->right_child), node);
 }
 
-// void print_tree(Bst_node* root, int number_of_options) {
-//     if (root == NULL)
-//         return;
+void print_tree(Bst_node* root, int number_of_options) {
+    if (root == NULL)
+        return;
 
-//     print_tree(root->left_child, number_of_options);
+    print_tree(root->left_child, number_of_options);
 
-//     printf("Rod Length: %d\nMax Value: %d\n", root->rod_length, root->max_val);
-//     printf("Cuts: ");
-//     for (int i = 0; i < number_of_options; i++)
-//         if (root->cuts[i] != 0)
-//             printf("%d ", root->cuts[i]);
-//     printf("\n");
-
-//     print_tree(root->right_child, number_of_options);
-// }
+    printf("Rod Length: %d\n", root->rod_length);
+    
+    print_tree(root->right_child, number_of_options);
+}
 
 Bst_node* find_node(Bst_node* root, int rod_length) {
     if (root == NULL || root->rod_length == rod_length)

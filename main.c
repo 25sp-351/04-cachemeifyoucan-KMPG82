@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "cache.h"
+#include "cache_policy_a.h"
 #include "error_handling.h"
 #include "helpers.h"
 #include "rod_cutting.h"
