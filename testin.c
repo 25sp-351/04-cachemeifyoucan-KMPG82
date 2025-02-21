@@ -2,58 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "linked_list.h"
+#include "random_index.h"
 
 int main() {
 
-    Linked_list* ll = create_linked_list();
+    int cache_size = 5;
 
-    insert_node(1, &ll);
-    insert_node(3, &ll);
-    insert_node(2, &ll);
-    insert_node(6, &ll);
-    insert_node(4, &ll);
-
-    printf("head next %d\n", ll->head->next->index);
-
-    int index = evict_index(&ll);
-
-    printf("evicted %d\n", index);
-
-    printf("head %d\n", ll->head->index);
-    printf("tail %d\n", ll->tail->index);
-
-    index = evict_index(&ll);
-
-    printf("evicted %d\n", index);
-
-    index = evict_index(&ll);
-
-    printf("evicted %d\n", index);
-
-    printf("head %d\n", ll->head->index);
-
-    printf("tail %d\n", ll->tail->index);
-
-    index = evict_index(&ll);
-
-    printf("evicted %d\n", index);
-
-    printf("head %d\n", ll->head->index);
-
-    printf("tail %d\n", ll->tail->index);
-
-    index = evict_index(&ll);
-
-    printf("evicted %d\n", index);
-
-    printf("head %d\n", ll->head);
-
-    printf("tail %d\n", ll->tail);
-
-    index = evict_index(&ll);
-    index = evict_index(&ll);
-    index = evict_index(&ll);
+    for (int i = 0; i < 10; i++)
+        printf("%d\n", evict_index(cache_size));
 
     return 0;
 }

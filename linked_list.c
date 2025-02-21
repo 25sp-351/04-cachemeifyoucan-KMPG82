@@ -44,3 +44,14 @@ int evict_index(Linked_list** eviction_tracker) {
 
     return index_to_evict;
 }
+
+void print_ll(Linked_list* eviction_tracker) {
+    Linked_list_node* current_node = eviction_tracker->head;
+
+    while (current_node->next != NULL) {
+        printf("%d ", current_node->index);
+        current_node = current_node->next;
+    }
+
+    printf("\n");
+}

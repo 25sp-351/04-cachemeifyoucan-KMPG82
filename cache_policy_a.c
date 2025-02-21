@@ -41,6 +41,7 @@ int cache(int rod_length, const int length_options[], const int length_values[],
     int max_value;
 
     if (!requested_node) {
+        printf("DID NOT FIND IT\n");
         max_value = (*real_provider)(rod_length, length_options, length_values,
                                      number_of_length_options, cuts, remainder);
 
@@ -62,8 +63,18 @@ int cache(int rod_length, const int length_options[], const int length_values[],
 
         insert_linked_list_node(open_index, &eviction_tracker);
 
-        cache_array[open_index++] = node;
+        cache_array[open_index] = node;
+        open_index++;
         current_size++;
+
+        if(current_size == CACHE_SIZE)
+        {
+            for (int i = 0; i < CACHE_SIZE;i++){
+                printf("%d\n", cache_array[i]->rod_length);
+            }
+
+            print_ll(eviction_tracker);
+        }
     } else {
         max_value  = requested_node->max_val;
         *remainder = requested_node->remainder;

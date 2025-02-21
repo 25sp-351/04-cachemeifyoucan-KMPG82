@@ -11,3 +11,5 @@ Linked_list* create_linked_list();
 void insert_linked_list_node(int index, Linked_list** eviction_tracker);
 
 int evict_index(Linked_list** eviction_tracker);
+
+void print_ll(Linked_list* eviction_tracker);
