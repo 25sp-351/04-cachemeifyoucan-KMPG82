@@ -19,11 +19,11 @@ int open_index;
 
 /* initializes the cache and function pointers */
 function_ptr init_cache(function_ptr rod_cutting) {
-    real_provider    = rod_cutting;
-    cache_array      = malloc(CACHE_SIZE * sizeof(Bst_node *));
-    root             = NULL;
-    current_size     = 0;
-    open_index       = 0;
+    real_provider = rod_cutting;
+    cache_array   = malloc(CACHE_SIZE * sizeof(Bst_node *));
+    root          = NULL;
+    current_size  = 0;
+    open_index    = 0;
 
     for (int ix = 0; ix < CACHE_SIZE; ix++)
         cache_array[ix] = EMPTY;
@@ -35,44 +35,35 @@ function_ptr init_cache(function_ptr rod_cutting) {
    calcualted*/
 int cache(int rod_length, const int length_options[], const int length_values[],
           int number_of_length_options, int cuts[], int *remainder) {
-    Bst_node *requested_node = find_node(root, rod_length);
+    Bst_node *requested_node = find_bst_node(root, rod_length);
     int max_value;
 
-    if (!requested_node) {
+    if (requested_node == NULL) {
         max_value = (*real_provider)(rod_length, length_options, length_values,
                                      number_of_length_options, cuts, remainder);
-
-        Bst_node *node = create_node(cuts, number_of_length_options, rod_length,
-                                     max_value, *remainder);
 
         if (current_size == CACHE_SIZE) {
             int index_to_evict = evict_index(CACHE_SIZE);
 
-            printf("INDEX TO EVICT %d\n", index_to_evict);
-
-            delete_node(&root, cache_array[index_to_evict]->rod_length,
-                        number_of_length_options);
+            delete_bst_node(&root, cache_array[index_to_evict]->rod_length,
+                            number_of_length_options);
 
             open_index = index_to_evict;
             current_size--;
-            cache_array[index_to_evict] = NULL;
         }
 
-        insert_node(&root, node);
+        Bst_node *new_node =
+            create_bst_node(cuts, number_of_length_options, rod_length,
+                            max_value, *remainder, open_index);
 
-        cache_array[open_index++] = node;
+        insert_bst_node(&root, new_node);
+
+        cache_array[open_index++] = new_node;
         current_size++;
-
-        if(current_size == CACHE_SIZE)
-        {
-            for (int i = 0; i < CACHE_SIZE;i++){
-                printf("%d\n", cache_array[i]->rod_length);
-            }
-        }
-
     } else {
         max_value  = requested_node->max_val;
         *remainder = requested_node->remainder;
+
         memcpy(cuts, requested_node->cuts,
                number_of_length_options * sizeof(int));
     }

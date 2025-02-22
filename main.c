@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
     function_ptr provider = init_cache(rod_cutting);
 
     if (argc != 2 || !sscanf(argv[1], "%s", buffer)) {
-        printf("Invalid input.\n");
+        printf("Invalid file name. For example, \"options.txt\"\n");
         return 0;
     }
 
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
             negative_length_value(length, value) == 0) {
             printf(
                 "Invalid input. Only enter positive integers in the specified "
-                "format.  For example, \"24, 5\".\n");
+                "format. For example, \"24, 5\".\n");
             return 0;
         }
 
@@ -59,7 +59,6 @@ int main(int argc, char *argv[]) {
 
         (number_of_length_options)++;
     }
-
     fclose(file_pointer);
 
     int *cuts = calloc(number_of_length_options, sizeof(int));
@@ -70,7 +69,9 @@ int main(int argc, char *argv[]) {
     while (fgets(buffer, sizeof(buffer), stdin) != NULL) {
         if (!sscanf(buffer, "%d", &rod_length) ||
             rod_length_additional_characters(buffer)) {
-            printf("Invalid input.\n");
+            printf(
+                "Invalid input. Only enter positive integers. For example "
+                "\"5\".\n");
             continue;
         }
 
