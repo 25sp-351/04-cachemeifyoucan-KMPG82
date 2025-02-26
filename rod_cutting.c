@@ -7,8 +7,10 @@ of length options and their values */
 int rod_cutting(int rod_length, const int length_options[],
                 const int length_values[], int number_of_length_options,
                 int cuts[], int *remainder) {
-    if (rod_length == 0)
+    if (rod_length == 0) {
+        *remainder = 0;
         return 0;
+    }
 
     int best_value     = 0;
     int best_remainder = rod_length;

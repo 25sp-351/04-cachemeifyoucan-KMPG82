@@ -1,0 +1,1 @@
+- Regarding not using qsort, I couldn't because I used two separate arrays to store lengths and their corresponding values. Length value pairs could possibly be misordered if I used qsort, but if I used a struct to store those values together then I could have (didn't have enough time).

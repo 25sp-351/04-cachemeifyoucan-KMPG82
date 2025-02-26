@@ -61,8 +61,6 @@ int main(int argc, char *argv[]) {
 
     int *cuts = calloc(number_of_length_options, sizeof(int));
 
-    /* couldn't use qsort because the length value pairs would not be correct
-       anymore due to having two separte arrays for lengths and values*/
     sort(length_options, values, number_of_length_options);
 
     int rod_length;

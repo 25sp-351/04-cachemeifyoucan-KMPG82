@@ -43,18 +43,20 @@ int cache(int rod_length, const int length_options[], const int length_values[],
                                      number_of_length_options, cuts, remainder);
 
         if (current_size == CACHE_SIZE) {
-            int index_to_evict = evict_index(CACHE_SIZE);
+            int index_to_evict          = evict_index(CACHE_SIZE);
 
-            delete_bst_node(&root, cache_array[index_to_evict]->rod_length,
-                            number_of_length_options);
+            Bst_node *temp              = cache_array[index_to_evict];
+
+            cache_array[index_to_evict] = EMPTY;
+
+            delete_bst_node(&root, temp->rod_length, number_of_length_options);
 
             open_index = index_to_evict;
             current_size--;
         }
 
-        Bst_node *new_node =
-            create_bst_node(cuts, number_of_length_options, rod_length,
-                            max_value, *remainder, open_index);
+        Bst_node *new_node = create_bst_node(cuts, number_of_length_options,
+                                             rod_length, max_value, *remainder);
 
         insert_bst_node(&root, new_node);
 

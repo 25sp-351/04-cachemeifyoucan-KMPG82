@@ -37,22 +37,3 @@ random_index.o: random_index.c
 
 clean:
 	rm -f policy_a policy_b $(OBJS_COMMON) $(OBJS_A) $(OBJS_B)
-
-
-
-
-# all: testin
-
-# OBJS = testin.o random_index.o
-# CC = clang
-# CFLAGS = -g -Wall
-
-# testin: $(OBJS)
-# 	clang -o testin $(CFLAGS) $(OBJS)
-
-# testin.o: testin.c random_index.h
-
-# random_index.o: random_index.c
-
-# clean:
-# 	rm -f testin $(OBJS)

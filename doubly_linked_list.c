@@ -15,10 +15,11 @@ Doubly_linked_list* create_doubly_linked_list() {
 }
 
 /* inserts a node into the doubly linked list */
-void insert_doubly_linked_list_node(int index,
+void insert_doubly_linked_list_node(int rod_length,
                                     Doubly_linked_list** eviction_tracker) {
-    Doubly_linked_list_node* new_node = create_doubly_linked_list_node(index);
-    new_node->next                    = (*eviction_tracker)->head;
+    Doubly_linked_list_node* new_node =
+        create_doubly_linked_list_node(rod_length);
+    new_node->next = (*eviction_tracker)->head;
 
     if ((*eviction_tracker)->head != NULL)
         (*eviction_tracker)->head->previous = new_node;
@@ -35,9 +36,9 @@ int evict_index(Doubly_linked_list** eviction_tracker) {
     if ((*eviction_tracker)->tail == NULL)
         return -1;
 
-    int index_to_evict = (*eviction_tracker)->tail->index;
+    int rod_length_to_evict = (*eviction_tracker)->tail->rod_length;
 
-    Doubly_linked_list_node* node_of_index_to_evict = (*eviction_tracker)->tail;
+    Doubly_linked_list_node* node_of_item_to_evict = (*eviction_tracker)->tail;
 
     if ((*eviction_tracker)->tail->previous) {
         (*eviction_tracker)->tail       = (*eviction_tracker)->tail->previous;
@@ -47,20 +48,20 @@ int evict_index(Doubly_linked_list** eviction_tracker) {
         (*eviction_tracker)->tail = NULL;
     }
 
-    free(node_of_index_to_evict);
+    free(node_of_item_to_evict);
 
-    return index_to_evict;
+    return rod_length_to_evict;
 }
 
 /* moves the head of the list to the most recently used item in the cache */
-void move_head(Doubly_linked_list** eviction_tracker, int index) {
-    if ((*eviction_tracker)->head->index == index)
+void move_head(Doubly_linked_list** eviction_tracker, int rod_length) {
+    if ((*eviction_tracker)->head->rod_length == rod_length)
         return;
 
     Doubly_linked_list_node* current_node = (*eviction_tracker)->head;
 
     while (current_node != NULL) {
-        if (current_node->index == index) {
+        if (current_node->rod_length == rod_length) {
             if (current_node->previous != NULL)
                 current_node->previous->next = current_node->next;
 
@@ -85,11 +86,11 @@ void move_head(Doubly_linked_list** eviction_tracker, int index) {
 }
 
 Doubly_linked_list_node* find_node_in_doubly_linked_list(
-    Doubly_linked_list_node* head, int index) {
+    Doubly_linked_list_node* head, int rod_length) {
     if (head == NULL)
         return NULL;
 
-    while (head != NULL || head->index == index)
+    while (head != NULL || head->rod_length == rod_length)
         head = head->next;
 
     return head;
@@ -104,7 +105,7 @@ void print_doubly_linked_list(Doubly_linked_list* list) {
     Doubly_linked_list_node* current = list->head;
     printf("DLL\n");
     while (current != NULL) {
-        printf("%d ", current->index);
+        printf("%d ", current->rod_length);
         current = current->next;
     }
     printf("\n");
