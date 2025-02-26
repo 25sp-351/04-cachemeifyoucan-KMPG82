@@ -26,3 +26,5 @@ Bst_node* find_min_bst_node(Bst_node* root);
 
 void copy_node_data(Bst_node** destination, Bst_node* source,
                     int number_of_options);
+
+void print_bst(Bst_node* root);

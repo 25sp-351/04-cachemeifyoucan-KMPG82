@@ -11,8 +11,6 @@
 #define BUFFER_SIZE 100
 #define SIZE_MULTIPLIER 2
 
-/* main function that takes in the rod length as an argument from the command
-line */
 int main(int argc, char *argv[]) {
     FILE *file_pointer = NULL;
     char buffer[BUFFER_SIZE];
@@ -63,6 +61,8 @@ int main(int argc, char *argv[]) {
 
     int *cuts = calloc(number_of_length_options, sizeof(int));
 
+    /* couldn't use qsort because the length value pairs would not be correct
+       anymore due to having two separte arrays for lengths and values*/
     sort(length_options, values, number_of_length_options);
 
     int rod_length;

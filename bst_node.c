@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* creates a new bst node and initializes its values */
 Bst_node* create_bst_node(const int* cuts, int number_of_options,
                           int rod_length, int max_val, int remainder,
                           int index) {
@@ -23,6 +24,7 @@ Bst_node* create_bst_node(const int* cuts, int number_of_options,
     return new_node;
 }
 
+/* inserts bst node to the bst */
 void insert_bst_node(Bst_node** root, Bst_node* node) {
     if (*root == NULL) {
         *root = node;
@@ -35,6 +37,7 @@ void insert_bst_node(Bst_node** root, Bst_node* node) {
         insert_bst_node(&((*root)->right_child), node);
 }
 
+/* finds a node with the respective key(rod length) */
 Bst_node* find_bst_node(Bst_node* root, int rod_length) {
     if (root == NULL || root->rod_length == rod_length)
         return root;
@@ -50,6 +53,7 @@ Bst_node* find_bst_node(Bst_node* root, int rod_length) {
     return current_node;
 }
 
+/* handles deleting a node from the bst while maintaining bst properties */
 void delete_bst_node(Bst_node** root, int rod_length, int number_of_options) {
     Bst_node* target_node = find_bst_node(*root, rod_length);
 
@@ -99,6 +103,7 @@ void delete_bst_node(Bst_node** root, int rod_length, int number_of_options) {
     }
 }
 
+/* finds the parent node of a given node */
 Bst_node* find_parent_bst_node(Bst_node* root, Bst_node* target_node) {
     if (root == target_node)
         return NULL;
@@ -116,6 +121,7 @@ Bst_node* find_parent_bst_node(Bst_node* root, Bst_node* target_node) {
     return parent;
 }
 
+/* finds the left most node starting from the given root */
 Bst_node* find_min_bst_node(Bst_node* root) {
     if (root == NULL)
         return root;
@@ -126,6 +132,7 @@ Bst_node* find_min_bst_node(Bst_node* root) {
     return root;
 }
 
+/* copies a nodes data to another node */
 void copy_node_data(Bst_node** destination, Bst_node* source,
                     int number_of_options) {
     (*destination)->rod_length = source->rod_length;
@@ -134,4 +141,13 @@ void copy_node_data(Bst_node** destination, Bst_node* source,
     (*destination)->index      = source->index;
 
     memcpy((*destination)->cuts, source->cuts, number_of_options * sizeof(int));
+}
+
+void print_bst(Bst_node* root) {
+    if (root == NULL) {
+        return;
+    }
+    print_bst(root->left_child);
+    printf("Rod Length: %d at index %d\n", root->rod_length, root->index);
+    print_bst(root->right_child);
 }

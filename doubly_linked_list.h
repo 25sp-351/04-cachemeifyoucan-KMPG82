@@ -14,3 +14,8 @@ void insert_doubly_linked_list_node(int index,
 int evict_index(Doubly_linked_list** eviction_tracker);
 
 void move_head(Doubly_linked_list** eviction_tracker, int index);
+
+Doubly_linked_list_node* find_node_in_doubly_linked_list(
+    Doubly_linked_list_node* head, int index);
+
+void print_doubly_linked_list(Doubly_linked_list* list);

@@ -21,7 +21,7 @@ int open_index;
 /* initializes the cache and function pointers */
 function_ptr init_cache(function_ptr rod_cutting) {
     real_provider    = rod_cutting;
-    cache_array      = malloc(CACHE_SIZE * sizeof(Bst_node *));
+    cache_array      = malloc(CACHE_SIZE * sizeof(Bst_node*));
     root             = NULL;
     current_size     = 0;
     open_index       = 0;
@@ -46,8 +46,13 @@ int cache(int rod_length, const int length_options[], const int length_values[],
 
         if (current_size == CACHE_SIZE) {
             int index_to_evict = evict_index(&eviction_tracker);
+            Bst_node *node_to_evict = cache_array[index_to_evict];
 
-            delete_bst_node(&root, cache_array[index_to_evict]->rod_length,
+
+            printf("EVICTING INDEX %d with value %d\n", index_to_evict,
+                   cache_array[index_to_evict]->rod_length);
+            cache_array[index_to_evict] = NULL;
+            delete_bst_node(&root, node_to_evict->rod_length,
                             number_of_length_options);
 
             open_index = index_to_evict;
@@ -62,8 +67,9 @@ int cache(int rod_length, const int length_options[], const int length_values[],
 
         insert_doubly_linked_list_node(open_index, &eviction_tracker);
 
-        cache_array[open_index++] = new_node;
+        cache_array[open_index] = new_node;
         current_size++;
+        open_index++;
     } else {
         max_value  = requested_node->max_val;
         *remainder = requested_node->remainder;
@@ -73,6 +79,12 @@ int cache(int rod_length, const int length_options[], const int length_values[],
 
         move_head(&eviction_tracker, requested_node->index);
     }
+
+    printf("---------------------------\n");
+    print_doubly_linked_list(eviction_tracker);
+    printf("---------------------------\n");
+    print_bst(root);
+    printf("---------------------------\n");
 
     return max_value;
 }

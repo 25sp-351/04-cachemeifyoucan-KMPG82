@@ -5,6 +5,7 @@
 
 #include "doubly_linked_list_node.h"
 
+/* creates a doubly linked list and initializes its values */
 Doubly_linked_list* create_doubly_linked_list() {
     Doubly_linked_list* new_dll = malloc(sizeof(Doubly_linked_list));
     new_dll->head               = NULL;
@@ -13,6 +14,7 @@ Doubly_linked_list* create_doubly_linked_list() {
     return new_dll;
 }
 
+/* inserts a node into the doubly linked list */
 void insert_doubly_linked_list_node(int index,
                                     Doubly_linked_list** eviction_tracker) {
     Doubly_linked_list_node* new_node = create_doubly_linked_list_node(index);
@@ -27,6 +29,8 @@ void insert_doubly_linked_list_node(int index,
         (*eviction_tracker)->tail = new_node;
 }
 
+/* returns the index that is stored at the tail, the least recently used item in
+   the cache and removes the node from the list */
 int evict_index(Doubly_linked_list** eviction_tracker) {
     if ((*eviction_tracker)->tail == NULL)
         return -1;
@@ -48,6 +52,7 @@ int evict_index(Doubly_linked_list** eviction_tracker) {
     return index_to_evict;
 }
 
+/* moves the head of the list to the most recently used item in the cache */
 void move_head(Doubly_linked_list** eviction_tracker, int index) {
     if ((*eviction_tracker)->head->index == index)
         return;
@@ -77,4 +82,30 @@ void move_head(Doubly_linked_list** eviction_tracker, int index) {
         }
         current_node = current_node->next;
     }
+}
+
+Doubly_linked_list_node* find_node_in_doubly_linked_list(
+    Doubly_linked_list_node* head, int index) {
+    if (head == NULL)
+        return NULL;
+
+    while (head != NULL || head->index == index)
+        head = head->next;
+
+    return head;
+}
+
+void print_doubly_linked_list(Doubly_linked_list* list) {
+    if (list == NULL || list->head == NULL) {
+        printf("Empty list\n");
+        return;
+    }
+
+    Doubly_linked_list_node* current = list->head;
+    printf("DLL\n");
+    while (current != NULL) {
+        printf("%d ", current->index);
+        current = current->next;
+    }
+    printf("\n");
 }
