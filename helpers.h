@@ -5,3 +5,6 @@ void print_results(const int length_options[], const int values[],
                    int remainder, int max_value);
 
 void sort(int *length_options, int *values, int number_of_length_options);
+
+void read_file(int** length_options, int** values,
+               int* number_of_length_options, int* array_size, const char* file_name);
