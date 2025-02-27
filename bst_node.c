@@ -70,11 +70,17 @@ void delete_bst_node(Bst_node** root, int rod_length,
             temp = (*root)->right_child;
             free(*root);
             *root = temp;
-        } else if ((*root)->right_child == NULL) {
+            return;
+        }
+
+        if ((*root)->right_child == NULL) {
             temp = (*root)->left_child;
             free(*root);
             *root = temp;
-        } else {
+            return;
+        }
+
+        if ((*root)->left_child != NULL && (*root)->right_child != NULL) {
             temp = find_min_bst_node((*root)->right_child);
 
             copy_node_data(root, temp, number_of_length_options);
