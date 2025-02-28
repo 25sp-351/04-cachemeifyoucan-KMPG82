@@ -117,7 +117,8 @@ void copy_node_data(Bst_node** destination, Bst_node* source,
 void print_bst(Bst_node* root) {
     if (root == NULL)
         return;
+
     print_bst(root->left_child);
-    printf("Rod Length: %d\n", root->rod_length);
+    printf("%d ", root->rod_length);
     print_bst(root->right_child);
 }

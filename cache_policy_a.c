@@ -52,7 +52,6 @@ int cache(int rod_length, const int length_options[], const int length_values[],
         insert_bst_node(&root, new_node);
 
         insert_doubly_linked_list_node(rod_length, &eviction_tracker);
-
         current_size++;
     } else {
         max_value  = requested_node->max_val;
@@ -63,6 +62,16 @@ int cache(int rod_length, const int length_options[], const int length_values[],
 
         move_head(&eviction_tracker, requested_node->rod_length);
     }
+
+#ifdef DEBUG
+    printf("-------------------------------------------");
+    printf("\nROD LENGTHS IN CACHE BST AFTER INSERTION: ");
+    print_bst(root);
+
+    printf("\nROD LENGTHS IN LRU ORDER: ");
+    print_doubly_linked_list(eviction_tracker);
+    printf("-------------------------------------------\n");
+#endif
 
     return max_value;
 }

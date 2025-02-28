@@ -86,5 +86,6 @@ void read_file(int** length_options, int** values,
         (*values)[*number_of_length_options]         = value;
         *number_of_length_options += 1;
     }
+    
     fclose(file_pointer);
 }

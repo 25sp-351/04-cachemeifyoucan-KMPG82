@@ -2,7 +2,12 @@ all: policy_a policy_b
 
 OBJS_COMMON = main.o helpers.o error_handling.o rod_cutting.o bst_node.o
 
+debug: CFLAGS += -DDEBUG
+
+debug: clean all
+
 CC = clang
+
 CFLAGS = -g -Wall
 
 OBJS_A = $(OBJS_COMMON) cache_policy_a.o doubly_linked_list.o doubly_linked_list_node.o
@@ -34,6 +39,8 @@ cache_policy_a.o: cache_policy_a.c cache_policy_a.h bst_node.h doubly_linked_lis
 cache_policy_b.o: cache_policy_b.c cache_policy_b.h bst_node.h random_index.h
 
 random_index.o: random_index.c
+
+
 
 clean:
 	rm -f policy_a policy_b $(OBJS_COMMON) $(OBJS_A) $(OBJS_B)

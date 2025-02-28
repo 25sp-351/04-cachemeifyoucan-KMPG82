@@ -98,12 +98,11 @@ Doubly_linked_list_node* find_node_in_doubly_linked_list(
 
 void print_doubly_linked_list(Doubly_linked_list* list) {
     if (list == NULL || list->head == NULL) {
-        printf("Empty list\n");
+        printf("Empty.\n");
         return;
     }
 
     Doubly_linked_list_node* current = list->head;
-    printf("DLL\n");
     while (current != NULL) {
         printf("%d ", current->rod_length);
         current = current->next;

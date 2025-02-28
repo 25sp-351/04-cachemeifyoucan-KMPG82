@@ -15,16 +15,17 @@ int main(int argc, char *argv[]) {
     int remainder                = 0;
     int number_of_length_options = 0;
     int array_size               = INITIAL_SIZE;
-    int *length_options   = malloc(INITIAL_SIZE * sizeof(int));
-    int *values           = malloc(INITIAL_SIZE * sizeof(int));
-    function_ptr provider = init_cache(rod_cutting);
+    int *length_options          = malloc(INITIAL_SIZE * sizeof(int));
+    int *values                  = malloc(INITIAL_SIZE * sizeof(int));
+    function_ptr provider        = init_cache(rod_cutting);
 
     if (argc != 2 || !sscanf(argv[1], "%s", buffer)) {
         printf("Invalid file name. For example, \"options.txt\"\n");
         return 0;
     }
 
-    read_file(&length_options, &values, &number_of_length_options, &array_size, buffer);
+    read_file(&length_options, &values, &number_of_length_options, &array_size,
+              buffer);
 
     int *cuts = calloc(number_of_length_options, sizeof(int));
 

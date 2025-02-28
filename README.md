@@ -1,1 +1,3 @@
 - Regarding not using qsort, I couldn't because I used two separate arrays to store lengths and their corresponding values. Length value pairs could possibly be misordered if I used qsort, but if I used a struct to store those values together then I could have (didn't have enough time).
+
+- Use <make debug> command to see how the cache and eviction policy is working. Use <make> to generate executables that hide how the cache and eviction policy is working. Then, use <policy_a "options.txt"> or <policy_b "options.txt"> to execute.
