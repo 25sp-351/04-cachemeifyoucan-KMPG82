@@ -17,7 +17,8 @@ function_ptr real_provider;
 int current_size;
 int open_index;
 
-/* initializes the cache and function pointers */
+/* takes in the real provider, initializes the cache and function pointers, then
+   returns cache function */
 function_ptr init_cache(function_ptr rod_cutting) {
     real_provider = rod_cutting;
     cache_array   = malloc(CACHE_SIZE * sizeof(int));
@@ -31,8 +32,8 @@ function_ptr init_cache(function_ptr rod_cutting) {
     return cache;
 }
 
-/* responsible for returning requested data whether it is in cache or must be
-   calcualted*/
+/* takes in requested data and returns the data if in the cache, if not, compute
+   the data via the real provider */
 int cache(int rod_length, const int length_options[], const int length_values[],
           int number_of_length_options, int cuts[], int *remainder) {
     Bst_node *requested_node = find_bst_node(root, rod_length);

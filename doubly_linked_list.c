@@ -5,7 +5,7 @@
 
 #include "doubly_linked_list_node.h"
 
-/* creates a doubly linked list and initializes its values */
+/* creates a doubly linked list and initializes the head and tail */
 Doubly_linked_list* create_doubly_linked_list() {
     Doubly_linked_list* new_dll = malloc(sizeof(Doubly_linked_list));
     new_dll->head               = NULL;
@@ -14,7 +14,8 @@ Doubly_linked_list* create_doubly_linked_list() {
     return new_dll;
 }
 
-/* inserts a node into the doubly linked list */
+/* takes in required data for a dll node, and creates and inserts the node into
+   the doubly linked list */
 void insert_doubly_linked_list_node(int rod_length,
                                     Doubly_linked_list** eviction_tracker) {
     Doubly_linked_list_node* new_node =
@@ -30,8 +31,8 @@ void insert_doubly_linked_list_node(int rod_length,
         (*eviction_tracker)->tail = new_node;
 }
 
-/* returns the index that is stored at the tail, the least recently used item in
-   the cache and removes the node from the list */
+/* takes in a pointer to a dll, returns the data inside the tail node, then
+   removes the node from the dll */
 int evict_index(Doubly_linked_list** eviction_tracker) {
     if ((*eviction_tracker)->tail == NULL)
         return -1;
@@ -53,7 +54,8 @@ int evict_index(Doubly_linked_list** eviction_tracker) {
     return rod_length_to_evict;
 }
 
-/* moves the head of the list to the most recently used item in the cache */
+/* takes in a pointer to a dll and the data of the desired node, then changes
+   the head of the dll to the desired node */
 void move_head(Doubly_linked_list** eviction_tracker, int rod_length) {
     if ((*eviction_tracker)->head->rod_length == rod_length)
         return;
@@ -85,17 +87,7 @@ void move_head(Doubly_linked_list** eviction_tracker, int rod_length) {
     }
 }
 
-Doubly_linked_list_node* find_node_in_doubly_linked_list(
-    Doubly_linked_list_node* head, int rod_length) {
-    if (head == NULL)
-        return NULL;
-
-    while (head != NULL || head->rod_length == rod_length)
-        head = head->next;
-
-    return head;
-}
-
+/* takes in a pointer to a dll, then prints the data in each node */
 void print_doubly_linked_list(Doubly_linked_list* list) {
     if (list == NULL || list->head == NULL) {
         printf("Empty.\n");

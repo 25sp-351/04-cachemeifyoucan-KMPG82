@@ -6,8 +6,9 @@
 #define SIZE_MULTIPLIER 2
 #define BUFFER_SIZE 100
 
-/* prints the distribution of cuts along with how much value they contributed to
-the total, the remainder, and the most value that can be obtained */
+/* takes in required data, then prints the distribution of cuts along with how
+much value they contributed to the total, the remainder, and the most value that
+can be obtained */
 void print_results(int length_options[], int values[], int cuts[],
                    int number_of_length_options, int remainder, int max_value) {
     for (int ix = 0; ix < number_of_length_options; ix++) {
@@ -21,8 +22,9 @@ void print_results(int length_options[], int values[], int cuts[],
     printf("Value: %d\n", max_value);
 }
 
-/* uses a selection sort algorithm to sort the pieces in descending order based
-on value, then based on length if values are the same */
+/* takes in two arrays, then uses a selection sort algorithm to sort the pieces
+   in descending order based on value, then based on length if values are the
+   same */
 void sort(int* length_options, int* values, int number_of_length_options) {
     for (int ix = 0; ix < number_of_length_options; ix++) {
         for (int jx = ix + 1; jx < number_of_length_options; jx++) {
@@ -48,6 +50,9 @@ void sort(int* length_options, int* values, int number_of_length_options) {
     }
 }
 
+/* takes in two arrays to be filled with data read from a text file, a file
+   name, size of each array, and an integer that tracks how many options were
+   read */
 void read_file(int** length_options, int** values,
                int* number_of_length_options, int* array_size,
                const char* file_name) {
@@ -86,6 +91,6 @@ void read_file(int** length_options, int** values,
         (*values)[*number_of_length_options]         = value;
         *number_of_length_options += 1;
     }
-    
+
     fclose(file_pointer);
 }

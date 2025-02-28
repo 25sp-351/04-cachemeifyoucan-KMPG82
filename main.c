@@ -10,6 +10,8 @@
 #define INITIAL_SIZE 5
 #define BUFFER_SIZE 100
 
+/* takes in file name, initializes data to be calculated, and reads in integers
+   (rod lengths) from standard input */
 int main(int argc, char *argv[]) {
     char buffer[BUFFER_SIZE];
     int remainder                = 0;
@@ -34,7 +36,8 @@ int main(int argc, char *argv[]) {
     int rod_length;
     while (fgets(buffer, sizeof(buffer), stdin) != NULL) {
         if (!sscanf(buffer, "%d", &rod_length) ||
-            rod_length_additional_characters(buffer)) {
+            rod_length_additional_characters(buffer) ||
+            negative_rod_length(rod_length)) {
             printf(
                 "Invalid input. Only enter positive integers. For example "
                 "\"5\".\n");

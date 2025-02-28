@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* creates a new bst node and initializes its values */
+/* takes in required data for a bst node and initializes a new bst node using
+   the given data, returns the new node */
 Bst_node* create_bst_node(const int* cuts, int number_of_length_options,
                           int rod_length, int max_val, int remainder) {
     Bst_node* new_node = malloc(sizeof(Bst_node));
@@ -22,7 +23,8 @@ Bst_node* create_bst_node(const int* cuts, int number_of_length_options,
     return new_node;
 }
 
-/* inserts bst node to the bst */
+/* takes in a root to start from and the node to be inserted, inserting the node
+   while maintaining bst properties */
 void insert_bst_node(Bst_node** root, Bst_node* node) {
     if (*root == NULL) {
         *root = node;
@@ -35,7 +37,7 @@ void insert_bst_node(Bst_node** root, Bst_node* node) {
         insert_bst_node(&((*root)->right_child), node);
 }
 
-/* finds a node with the respective key(rod length) */
+/* takes in a root to start from and a key (rod length) to search for */
 Bst_node* find_bst_node(Bst_node* root, int rod_length) {
     if (root == NULL || root->rod_length == rod_length)
         return root;
@@ -51,7 +53,8 @@ Bst_node* find_bst_node(Bst_node* root, int rod_length) {
     return current_node;
 }
 
-/* handles deleting a node from the bst while maintaining bst properties */
+/* takes in a root node to start from and the key (rod length) to recursively
+   search for the desired node to delete while maintaining bst properties */
 void delete_bst_node(Bst_node** root, int rod_length,
                      int number_of_length_options) {
     if ((*root) == NULL)
@@ -91,7 +94,7 @@ void delete_bst_node(Bst_node** root, int rod_length,
     }
 }
 
-/* finds the left most node starting from the given root */
+/* finds the left-most node in the bst starting from the root */
 Bst_node* find_min_bst_node(Bst_node* root) {
     if (root == NULL)
         return root;
@@ -102,7 +105,8 @@ Bst_node* find_min_bst_node(Bst_node* root) {
     return root;
 }
 
-/* copies a nodes data to another node */
+/* takes in two bst nodes and copies the source nodes data to the destination
+   node */
 void copy_node_data(Bst_node** destination, Bst_node* source,
                     int number_of_length_options) {
     (*destination)->rod_length = source->rod_length;
@@ -113,7 +117,7 @@ void copy_node_data(Bst_node** destination, Bst_node* source,
            number_of_length_options * sizeof(int));
 }
 
-/* prints the BST values in order */
+/* prints the BST nodes rod length in order starting from the root */
 void print_bst(Bst_node* root) {
     if (root == NULL)
         return;
